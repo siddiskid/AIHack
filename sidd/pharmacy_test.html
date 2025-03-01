@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pharmacy Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        .location-group {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .location-options {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .results {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+        }
+        .pharmacy-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+        }
+        .rating {
+            color: #f8c51c;
+            font-weight: bold;
+        }
+        .filters-summary {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+        .location-details {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pharmacy Finder Test</h1>
+    
+    <div class="location-group">
+        <h3>Location Settings</h3>
+        <div class="form-group">
+            <label>Location:</label>
+            <input type="text" id="location" placeholder="Enter location or use auto-locate" style="width: 250px;">
+            <button class="btn btn-secondary" onclick="autoLocate()">Auto-Locate Me</button>
+        </div>
+        
+        <div id="locationDetails" class="location-details">
+            <p><strong>Detected Location:</strong> <span id="detectedAddress">Not detected yet</span></p>
+            <p><strong>Full Address:</strong> <span id="fullAddress">Not available</span></p>
+            <p><strong>Neighborhood:</strong> <span id="neighborhood">Not available</span></p>
+            <p><strong>Coordinates:</strong> <span id="coordinates">Not available</span></p>
+            <button class="btn btn-secondary" onclick="useDetectedLocation()">Use This Location</button>
+        </div>
+
+        <div class="location-options">
+            <div class="form-group">
+                <label>Radius (km):</label>
+                <select id="radius">
+                    <option value="0.5">0.5</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Open Now:</label>
+                <input type="checkbox" id="openNow">
+            </div>
+            
+            <div class="form-group">
+                <label>Min Rating:</label>
+                <select id="minRating">
+                    <option value="0" selected>Any</option>
+                    <option value="3">3+ stars</option>
+                    <option value="4">4+ stars</option>
+                    <option value="4.5">4.5+ stars</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn btn-primary" onclick="searchPharmacies()">Search Pharmacies</button>
+    
+    <div id="status"></div>
+    <div id="results" class="results"></div>
+
+    <script>
+        let ws = null;
+        let detectedLocation = null;
+
+        function connect() {
+            ws = new WebSocket('ws://localhost:8001');
+            
+            ws.onopen = function() {
+                document.getElementById('status').innerHTML = '<p style="color: green;">Connected to server</p>';
+            };
+            
+            ws.onclose = function() {
+                document.getElementById('status').innerHTML = '<p style="color: red;">Disconnected from server</p>';
+                setTimeout(connect, 5000);
+            };
+            
+            ws.onerror = function(error) {
+                document.getElementById('status').innerHTML = '<p class="error">Error connecting to server</p>';
+                console.error('WebSocket error:', error);
+            };
+            
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.type === 'auto_locate_response') {
+                    handleAutoLocateResponse(data);
+                } else {
+                    displayResults(data);
+                }
+            };
+        }
+
+        function autoLocate() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                document.getElementById('status').innerHTML = '<p class="error">Not connected to server. Trying to reconnect...</p>';
+                connect();
+                return;
+            }
+
+            document.getElementById('locationDetails').style.display = 'none';
+            document.getElementById('status').innerHTML = '<p>Detecting location...</p>';
+            
+            ws.send(JSON.stringify({
+                type: 'auto_locate'
+            }));
+        }
+
+        function handleAutoLocateResponse(data) {
+            const locationDetails = document.getElementById('locationDetails');
+            if (data.success) {
+                detectedLocation = data.location;
+                document.getElementById('detectedAddress').textContent = data.location.address;
+                document.getElementById('fullAddress').textContent = data.location.full_address || data.location.address;
+                document.getElementById('neighborhood').textContent = 
+                    data.location.details?.neighborhood || 'Not available';
+                document.getElementById('coordinates').textContent = 
+                    `${data.location.lat.toFixed(6)}, ${data.location.lng.toFixed(6)}`;
+                locationDetails.style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('status').innerHTML = '<p style="color: green;">Connected to server</p>';
+                }, 1500);
+            } else {
+                document.getElementById('status').innerHTML = 
+                    `<p class="error">Could not detect location: ${data.error || 'Unknown error'}</p>`;
+                setTimeout(() => {
+                    document.getElementById('status').innerHTML = '<p style="color: green;">Connected to server</p>';
+                }, 3000);
+            }
+        }
+
+        function useDetectedLocation() {
+            if (detectedLocation) {
+                document.getElementById('location').value = detectedLocation.address;
+            }
+        }
+
+        function searchPharmacies() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                document.getElementById('status').innerHTML = '<p class="error">Not connected to server. Trying to reconnect...</p>';
+                connect();
+                return;
+            }
+
+            const searchParams = {
+                location: document.getElementById('location').value,
+                radius: parseFloat(document.getElementById('radius').value),
+                openNow: document.getElementById('openNow').checked,
+                minRating: parseFloat(document.getElementById('minRating').value)
+            };
+
+            // If we have detected coordinates, include them
+            if (detectedLocation) {
+                searchParams.lat = detectedLocation.lat;
+                searchParams.lng = detectedLocation.lng;
+            }
+
+            document.getElementById('results').innerHTML = '<p style="text-align: center;">Searching for pharmacies...</p>';
+            ws.send(JSON.stringify(searchParams));
+        }
+
+        function formatRating(rating) {
+            if (rating === 'No rating') return rating;
+            const numRating = parseFloat(rating);
+            return numRating.toFixed(1) + ' stars';
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            
+            if (data.error) {
+                resultsDiv.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+
+            if (data.success) {
+                let html = `<h3>Found ${data.total} pharmacies near ${data.location.address}</h3>`;
+                
+                if (data.filters_applied) {
+                    const filters = data.filters_applied;
+                    html += '<div class="filters-summary">Filters applied: ';
+                    const activeFilters = [];
+                    if (filters.min_rating) activeFilters.push(`Rating >= ${filters.min_rating} stars`);
+                    if (filters.open_now) activeFilters.push('Open Now');
+                    html += activeFilters.length ? activeFilters.join(', ') : 'None';
+                    html += `<br>Search radius: ${filters.radius_km}km`;
+                    if (data.filtered_out > 0) {
+                        html += `<br>Note: ${data.filtered_out} pharmacies were filtered out`;
+                    }
+                    html += '</div>';
+                }
+
+                if (data.results.length === 0) {
+                    html += `
+                        <div class="no-results">
+                            <p>No pharmacies found matching your criteria.</p>
+                            <p>Try adjusting your filters or increasing the search radius.</p>
+                        </div>
+                    `;
+                } else {
+                    data.results.forEach((pharmacy, index) => {
+                        html += `
+                            <div class="pharmacy-item">
+                                <h4>${index + 1}. ${pharmacy.name}</h4>
+                                <p>Address: ${pharmacy.address}</p>
+                                <p>Rating: <span class="rating">${formatRating(pharmacy.rating)}</span></p>
+                                <p>Open Now: ${pharmacy.openNow ? 'Yes' : 'No'}</p>
+                                ${pharmacy.mapsLink ? `<p><a href="${pharmacy.mapsLink}" target="_blank">View on Google Maps</a></p>` : ''}
+                            </div>
+                        `;
+                    });
+                }
+
+                resultsDiv.innerHTML = html;
+            } else {
+                resultsDiv.innerHTML = '<p>No results found</p>';
+            }
+        }
+
+        // Connect when page loads
+        connect();
+    </script>
+</body>
+</html> 
