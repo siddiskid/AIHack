@@ -3,11 +3,32 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 
 const WS_URL = "ws://localhost:8000";
 
+// Language options
+const LANGUAGES = {
+  en: "English",
+  es: "Spanish",
+  fr: "French",
+  de: "German",
+  it: "Italian",
+  pt: "Portuguese",
+  nl: "Dutch",
+  pl: "Polish",
+  ja: "Japanese",
+  ko: "Korean",
+  zh: "Chinese",
+  ru: "Russian",
+  ar: "Arabic",
+  hi: "Hindi",
+};
+
 function VoiceTranscription() {
   const [isRecording, setIsRecording] = useState(false);
   const [transcription, setTranscription] = useState("");
+  const [summary, setSummary] = useState("");
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState("Disconnected");
+  const [inputLanguage, setInputLanguage] = useState("en");
+  const [outputLanguage, setOutputLanguage] = useState("en");
   const audioContext = useRef(null);
   const processor = useRef(null);
   const audioInput = useRef(null);
@@ -43,6 +64,9 @@ function VoiceTranscription() {
         const result = JSON.parse(lastMessage.data);
         if (result.transcription) {
           setTranscription((prev) => prev + " " + result.transcription);
+        }
+        if (result.summary) {
+          setSummary(result.summary);
         }
         if (result.error) {
           console.error("Server error:", result.error);
@@ -129,7 +153,13 @@ function VoiceTranscription() {
           const reader = new FileReader();
           reader.onloadend = () => {
             const base64Audio = reader.result.split(",")[1];
-            sendMessage(JSON.stringify({ audio: base64Audio }));
+            sendMessage(
+              JSON.stringify({
+                audio: base64Audio,
+                inputLanguage,
+                outputLanguage,
+              })
+            );
           };
           reader.readAsDataURL(wavBlob);
           audioData.current = [];
@@ -146,7 +176,7 @@ function VoiceTranscription() {
       console.error("Error accessing microphone:", error);
       alert("Error accessing microphone: " + error.message);
     }
-  }, [sendMessage, readyState]);
+  }, [sendMessage, readyState, inputLanguage, outputLanguage]);
 
   const stopRecording = useCallback(() => {
     if (isRecording) {
@@ -182,6 +212,38 @@ function VoiceTranscription() {
       >
         Status: {connectionStatus}
       </div>
+      <div className="language-selectors">
+        <div className="language-selector">
+          <label htmlFor="input-language-select">Speaking Language: </label>
+          <select
+            id="input-language-select"
+            value={inputLanguage}
+            onChange={(e) => setInputLanguage(e.target.value)}
+            disabled={isRecording}
+          >
+            {Object.entries(LANGUAGES).map(([code, name]) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="language-selector">
+          <label htmlFor="output-language-select">Translate To: </label>
+          <select
+            id="output-language-select"
+            value={outputLanguage}
+            onChange={(e) => setOutputLanguage(e.target.value)}
+            disabled={isRecording}
+          >
+            {Object.entries(LANGUAGES).map(([code, name]) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <div className="controls">
         <button
           onClick={isRecording ? stopRecording : startRecording}
@@ -191,9 +253,17 @@ function VoiceTranscription() {
           {isRecording ? "Stop Recording" : "Start Recording"}
         </button>
       </div>
-      <div className="transcription">
-        <h3>Transcription:</h3>
-        <p>{transcription || "No transcription yet..."}</p>
+      <div className="transcription-container">
+        <div className="transcription">
+          <h3>Transcription:</h3>
+          <p>{transcription || "No transcription yet..."}</p>
+        </div>
+        <div className="summary">
+          <h3>Clinical Summary:</h3>
+          <pre>
+            {summary || "Summary will appear after sufficient transcription..."}
+          </pre>
+        </div>
       </div>
     </div>
   );
