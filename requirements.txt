@@ -1,5 +1,7 @@
+geopy==2.4.1
+numpy
 openai-whisper
 pyaudio
-numpy
-torch
-tkinter 
+requests==2.31.0
+tk==0.1.0
+torch 
