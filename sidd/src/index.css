@@ -67,3 +67,101 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.voice-transcription {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.record-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.record-button:hover {
+  background-color: #45a049;
+}
+
+.record-button.recording {
+  background-color: #ff4444;
+  animation: pulse 1.5s infinite;
+}
+
+.record-button.recording:hover {
+  background-color: #d32f2f;
+}
+
+.heart-link {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid #ff3860;
+  border-radius: 25px;
+  color: #ff3860;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.heart-link:hover {
+  background: #ff3860;
+  color: white;
+  transform: scale(1.05);
+}
+
+.transcription {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  min-height: 100px;
+  color: #000000;
+}
+
+.transcription h3 {
+  margin-top: 0;
+  color: #000000;
+}
+
+.transcription p {
+  color: #000000;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.connection-status {
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}

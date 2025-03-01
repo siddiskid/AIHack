@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { initializeApp } from "firebase/app";
 import {
@@ -8,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import VoiceTranscription from "./components/VoiceTranscription";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDoStP2q45t8lJ8E6WjwIEangeyrZqd8i0",
@@ -20,9 +20,7 @@ const firebaseConfig = {
 };
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  // Initialize Firebase
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
@@ -33,6 +31,7 @@ function App() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        setIsAuthenticated(true);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -48,6 +47,7 @@ function App() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        setIsAuthenticated(true);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -57,30 +57,38 @@ function App() {
   };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="app-container">
+        <header>
+          <h1>Voice Transcription App</h1>
+          <div className="auth-buttons">
+            {!isAuthenticated ? (
+              <>
+                <button onClick={handleSignUp}>Sign up</button>
+                <button onClick={handleSignIn}>Sign in</button>
+              </>
+            ) : (
+              <p>Welcome! You are signed in.</p>
+            )}
+          </div>
+        </header>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? (
+                <VoiceTranscription />
+              ) : (
+                <div className="auth-message">
+                  <p>Please sign in to use the voice transcription feature.</p>
+                </div>
+              )
+            }
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <button onClick={() => handleSignUp()}>Sign up</button>
-        <button onClick={() => handleSignIn()}>Sign in</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </Router>
   );
 }
 
