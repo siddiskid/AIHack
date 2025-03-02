@@ -12,7 +12,7 @@ import Contact from "./components/Contact";
 import Pharmacy from "./components/Pharmacy";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDoStP2q45t8lJ8E6WjwIEangeyrZqd8i0",
+  apiKey: "#",
   authDomain: "aihack-45bb6.firebaseapp.com",
   projectId: "aihack-45bb6",
   storageBucket: "aihack-45bb6.firebasestorage.app",
