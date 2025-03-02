@@ -202,7 +202,7 @@ function VoiceTranscription() {
   };
 
   return (
-    <div className="voice-transcription">
+    <div className="voice-transcription-container">
       <div
         className="connection-status"
         style={{
