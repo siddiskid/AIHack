@@ -132,8 +132,8 @@ function VoiceTranscription() {
 
       audioContext.current = new (window.AudioContext ||
         window.webkitAudioContext)({
-        sampleRate: 16000,
-      });
+          sampleRate: 16000,
+        });
 
       audioInput.current = audioContext.current.createMediaStreamSource(stream);
       processor.current = audioContext.current.createScriptProcessor(

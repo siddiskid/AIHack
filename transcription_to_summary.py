@@ -95,17 +95,17 @@ def process_transcript(transcript, language):
     return generated_text
 
 # Example usage
-result = process_transcript("""Good morning. What brings you in today?
-Hi, I've had this cough for two weeks. Fever started yesterday.    
-Any chest pain? Trouble breathing?
-Some tightness when coughing. Get winded climbing stairs.    
-Let me listen. Hearing crackling in lower left lung. Nausea?
-No nausea. Very tired though. Taking Tylenol for fever.    
-Temperature is 38.1°C. We'll do a chest X-ray. 
-...shows consolidation. Early pneumonia. Take azithromycin 500mg once daily for 5 days.    
-Avoid alcohol. Use humidifier. ER if blue lips or fever over 39.4°C.
-Return in 7 days. Call if worse.""", "Chinese-Simplified")
+# result = process_transcript("""Good morning. What brings you in today?
+# Hi, I've had this cough for two weeks. Fever started yesterday.    
+# Any chest pain? Trouble breathing?
+# Some tightness when coughing. Get winded climbing stairs.    
+# Let me listen. Hearing crackling in lower left lung. Nausea?
+# No nausea. Very tired though. Taking Tylenol for fever.    
+# Temperature is 38.1°C. We'll do a chest X-ray. 
+# ...shows consolidation. Early pneumonia. Take azithromycin 500mg once daily for 5 days.    
+# Avoid alcohol. Use humidifier. ER if blue lips or fever over 39.4°C.
+# Return in 7 days. Call if worse.""", "Chinese-Simplified")
 
-if result:
-    print("Valid Medical Summary:")
-    print(result)
+# if result:
+#     print("Valid Medical Summary:")
+#     print(result)
