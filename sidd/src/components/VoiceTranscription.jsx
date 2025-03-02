@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
-const WS_URL = "ws://localhost:8000";
+const WS_URL = "ws://localhost:8001";
 
 // Language options
 const LANGUAGES = {

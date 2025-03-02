@@ -1,7 +1,23 @@
-geopy==2.4.1
-numpy
-openai-whisper
-pyaudio
+# Core dependencies
+numpy==1.24.3
+openai-whisper==20231117
+PyAudio==0.2.13
 requests==2.31.0
-tk==0.1.0
-torch 
+torch==2.1.0
+websockets==12.0
+
+# Audio processing
+SpeechRecognition==3.10.0
+sounddevice==0.4.6
+
+# Translation
+transformers==4.36.0
+sentencepiece==0.1.99
+
+# Utilities
+python-dotenv==1.0.0
+tqdm==4.66.1
+
+# Optional - for GPU support (uncomment if needed)
+# cuda-python==12.3.0
+# torch==2.1.0+cu118  # Replace the torch version above with this for CUDA support 

@@ -1,13 +1,15 @@
 {
-  "name": "hello",
+  "name": "medical-transcription-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start-server": "python ../main.py",
+    "start": "concurrently \"npm run dev\" \"npm run start-server\""
   },
   "dependencies": {
     "@react-three/drei": "^10.0.3",
@@ -16,19 +18,24 @@
     "@splinetool/runtime": "^1.9.72",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^7.2.0",
-    "react-use-websocket": "^4.13.0",
-    "socket.io-client": "^4.8.1",
-    "three": "^0.174.0"
+    "react-router-dom": "^6.22.1",
+    "react-use-websocket": "^4.5.0",
+    "socket.io-client": "^4.7.4",
+    "three": "^0.161.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

@@ -1,6 +1,7 @@
 # AI Healthcare Assistant
 
 This repository contains two applications:
+
 1. A Pharmacy Finder application to locate nearby pharmacies
 2. A Voice-to-Text Medical Assistant for transcribing and analyzing medical conversations
 
@@ -11,11 +12,13 @@ A Python application that helps users find nearby pharmacies using the Google Pl
 ## Features
 
 - **Location Services**:
+
   - Auto-locate using IP-based geolocation
   - Manual location input (address, city, or coordinates)
   - Current location display with coordinates
 
 - **Search Filters**:
+
   - Adjustable search radius (0.5km to 5km)
   - "Open Now" filter to show only currently open pharmacies
   - Minimum rating filter (0 to 4.5 stars)
@@ -30,11 +33,13 @@ A Python application that helps users find nearby pharmacies using the Google Pl
 ## Setup Instructions
 
 1. **Install Python Dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Google Places API Setup**:
+
    - Go to [Google Cloud Console](https://console.cloud.google.com)
    - Create a new project or select an existing one
    - Enable the Places API for your project
@@ -52,15 +57,18 @@ A Python application that helps users find nearby pharmacies using the Google Pl
 ## How to Use Pharmacy Finder
 
 1. **Setting Your Location**:
+
    - Click "Auto-locate" to automatically detect your location
    - OR enter an address/city in the text field and click "Set Location"
 
 2. **Adjusting Search Filters**:
+
    - Select search radius from dropdown (0.5km to 5km)
    - Check "Open Now" to show only currently open pharmacies
    - Select minimum rating if desired (0 to 4.5 stars)
 
 3. **Searching**:
+
    - Click "Search" to find pharmacies
    - Results will show in the main window
    - Each result includes:
@@ -84,11 +92,13 @@ A Python application that transcribes medical conversations and provides analysi
 ## Features
 
 - **Voice Recording**:
+
   - Real-time audio recording
   - Automatic speech detection
   - Support for multiple audio input devices
 
 - **Transcription**:
+
   - Accurate speech-to-text conversion
   - Medical terminology recognition
   - Support for multiple languages
@@ -101,21 +111,25 @@ A Python application that transcribes medical conversations and provides analysi
 ## How to Use Voice-to-Text Assistant
 
 1. **Starting the Application**:
+
    ```bash
    python gui.py
    ```
 
 2. **Recording Audio**:
+
    - Click "Start Recording" to begin capturing audio
    - Speak clearly into your microphone
    - Click "Stop Recording" when finished
 
 3. **Transcription**:
+
    - The application will automatically transcribe your recording
    - Transcribed text appears in the main window
    - Wait for processing to complete (indicated by status messages)
 
 4. **Viewing Results**:
+
    - Transcribed text is displayed in the main text area
    - Analysis and key points are shown below the transcription
    - Use the scroll bar to view long transcriptions
@@ -141,3 +155,15 @@ A Python application that transcribes medical conversations and provides analysi
 - Pharmacy Finder depends on Google Places API quota and billing status
 - Voice-to-Text Assistant requires a working microphone
 - Location accuracy may vary based on the geolocation method used
+
+How to run:
+
+```
+brew install ffmpeg
+chmod +x start_pharmacy.sh && ./start_pharmacy.sh
+cd sidd && pip install -r requirements.txt && python server.py
+cd sidd && pip install -r requirements.txt
+npm i firebase
+python main.py
+cd sidd && npm install && npm run dev
+```
