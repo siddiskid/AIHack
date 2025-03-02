@@ -116,9 +116,20 @@
 }
 
 .feature-icon {
-    width: 24px;
-    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(70, 102, 229, 0.1);
+    border-radius: 50%;
     color: #4666e5;
+}
+
+.feature-icon svg {
+    width: 20px;
+    height: 20px;
 }
 
 .feature span {

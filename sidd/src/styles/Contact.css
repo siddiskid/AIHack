@@ -1,0 +1,346 @@
+/* Contact page styles */
+.contact-container {
+    min-height: 100vh;
+    background-color: #f5f7fd;
+    /* Lighter blue background to match screenshot */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Reusing navigation styles */
+.contact-container .home-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-container .nav-logo h1 {
+    margin: 0;
+    color: #4666e5;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.contact-container .nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.contact-container .nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-container .nav-links a:hover,
+.contact-container .nav-links a.active {
+    color: #4666e5;
+}
+
+.contact-container .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contact-container .get-started-btn {
+    background-color: #4666e5;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-container .get-started-btn:hover {
+    background-color: #3651c6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+.contact-container .sign-out-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+    transition: all 0.3s ease;
+}
+
+.contact-container .sign-out-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.25);
+}
+
+/* Contact content styles - updated to match screenshot */
+.contact-main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.contact-main h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+.contact-intro {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
+    max-width: 650px;
+}
+
+.contact-form-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    padding: 2rem;
+    max-width: 650px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Base input styles */
+.form-input {
+    padding: 0.9rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Style for name and message fields (dark background) */
+#name,
+#message {
+    background-color: #333333;
+    color: white;
+}
+
+#name::placeholder,
+#message::placeholder {
+    color: #aaa;
+}
+
+/* Style for email field (light background) */
+#email {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    color: #333;
+}
+
+#email::placeholder {
+    color: #999;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4666e5;
+    box-shadow: 0 0 0 2px rgba(70, 102, 229, 0.1);
+}
+
+.send-message-btn {
+    background-color: #4666e5;
+    color: white;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.send-message-btn:hover {
+    background-color: #3651c6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+/* Success message styles */
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    padding: 0 2rem;
+}
+
+.success-modal {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    padding: 3rem 2rem;
+    max-width: 550px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.success-icon {
+    background-color: #eef1fe;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.success-icon svg {
+    width: 35px;
+    height: 35px;
+}
+
+.success-modal h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.success-modal p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.close-btn {
+    background-color: #4666e5;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: #3651c6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .contact-container .home-nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .contact-container .nav-logo {
+        margin-bottom: 1rem;
+    }
+
+    .contact-container .nav-links {
+        gap: 1rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .contact-container .nav-button {
+        margin-top: 1rem;
+    }
+
+    .contact-main {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-main h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-intro {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-form-container {
+        padding: 1.5rem;
+    }
+
+    .success-modal {
+        padding: 2rem 1.5rem;
+    }
+
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1.2rem;
+    }
+
+    .success-modal h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-main h1 {
+        font-size: 1.8rem;
+    }
+
+    .form-input {
+        padding: 0.8rem;
+    }
+
+    .send-message-btn {
+        padding: 0.8rem;
+    }
+
+    .success-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .success-icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .success-modal h2 {
+        font-size: 1.3rem;
+    }
+
+    .close-btn {
+        padding: 0.7rem 1.7rem;
+    }
+}

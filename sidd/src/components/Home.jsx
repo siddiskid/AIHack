@@ -22,10 +22,10 @@ const Home = ({ isAuthenticated, onSignOut }) => {
                     </Link>
                 </div>
                 <div className="nav-links">
-                    <a href="#" className="active">Home</a>
-                    <a href="#about">About</a>
+                    <Link to="/" className="active">Home</Link>
+                    <Link to="/about">About</Link>
                     <Link to="/services">Services</Link>
-                    <a href="#contact">Contact us</a>
+                    <Link to="/contact">Contact us</Link>
                 </div>
                 <div className="nav-button">
                     {isAuthenticated ? (

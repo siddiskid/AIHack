@@ -7,6 +7,8 @@ import VoiceTranscription from "./components/VoiceTranscription";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Services from "./components/Services";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDoStP2q45t8lJ8E6WjwIEangeyrZqd8i0",
@@ -111,6 +113,14 @@ function AppContent({ isAuthenticated, handleSignOut, handleAuthenticated }) {
         <Route
           path="/"
           element={<Home isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />}
+        />
+        <Route
+          path="/about"
+          element={<About isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />}
+        />
+        <Route
+          path="/contact"
+          element={<Contact isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />}
         />
         <Route
           path="/services"

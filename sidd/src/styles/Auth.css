@@ -56,25 +56,39 @@ h1 {
 .google-sign-in-button {
     display: block;
     width: 100%;
-    padding: 12px;
-    background-color: #f1f3f5;
+    padding: 10px 12px;
+    background-color: #fff;
     color: #111827;
     border: 1px solid #e5e7eb;
     border-radius: 6px;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .google-sign-in-button:hover {
-    background-color: #e5e7eb;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .google-sign-in-button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+}
+
+.google-btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.google-icon {
+    width: 22px;
+    height: 22px;
 }
 
 .divider {

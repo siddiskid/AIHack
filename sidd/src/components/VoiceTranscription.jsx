@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import "../styles/VoiceTranscription.css";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const WS_URL = "ws://localhost:8001";
 
@@ -296,7 +297,9 @@ function VoiceTranscription({ hideMainTitle }) {
     <div className="voice-transcription-container">
       <div className="transcription-header">
         {!hideMainTitle && (
-          <h1>Prescripto</h1>
+          <Link to="/" className="title-link">
+            <h1>Prescripto</h1>
+          </Link>
         )}
         <p>Record or paste medical conversations for instant clinical summaries</p>
       </div>
