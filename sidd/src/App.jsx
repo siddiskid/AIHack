@@ -53,7 +53,7 @@ function App() {
       <div className="app-container">
         {isAuthenticated && (
           <header>
-            <h1>Voice Transcription App</h1>
+            <h1>Medical Transcription App</h1>
             <div className="auth-buttons">
               <p>Welcome! You are signed in.</p>
               <button onClick={handleSignOut}>Sign out</button>
