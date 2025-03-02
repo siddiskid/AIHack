@@ -3,6 +3,7 @@ import json
 import websockets
 import requests
 from geopy.geocoders import Nominatim
+import time
 
 class PharmacyFinder:
     def __init__(self):
@@ -286,6 +287,15 @@ async def handle_websocket(websocket, path):
             try:
                 # Parse the incoming message
                 data = json.loads(message)
+                
+                # Check if this is a ping message
+                if data.get('type') == 'ping':
+                    print("Received ping, sending pong")
+                    await websocket.send(json.dumps({
+                        'type': 'pong',
+                        'timestamp': time.time()
+                    }))
+                    continue
                 
                 # Check if this is an auto-locate request
                 if data.get('type') == 'auto_locate':

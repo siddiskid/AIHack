@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Services from "./components/Services";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import Pharmacy from "./components/Pharmacy";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDoStP2q45t8lJ8E6WjwIEangeyrZqd8i0",
@@ -127,6 +128,16 @@ function AppContent({ isAuthenticated, handleSignOut, handleAuthenticated }) {
           element={
             isAuthenticated ? (
               <Services isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
+            ) : (
+              <Navigate to="/auth" replace />
+            )
+          }
+        />
+        <Route
+          path="/pharmacy"
+          element={
+            isAuthenticated ? (
+              <Pharmacy isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
             ) : (
               <Navigate to="/auth" replace />
             )

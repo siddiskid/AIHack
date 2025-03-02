@@ -10,9 +10,7 @@ const Services = ({ isAuthenticated, onSignOut }) => {
     };
 
     const handleFindPharmacy = () => {
-        // This would typically link to a pharmacy finder page
-        // For now, we'll just log it
-        console.log('Find a Pharmacy clicked');
+        navigate('/pharmacy');
     };
 
     return (
