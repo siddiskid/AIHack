@@ -89,13 +89,15 @@
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
   min-height: calc(100vh - 80px);
+  padding-top: 2rem;
 }
 
 .hero-section {
   flex: 0.8;
   padding-right: 4rem;
+  margin-top: -1.5rem;
 }
 
 .hero-title {
@@ -171,9 +173,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 800px;
+  height: 700px;
   position: relative;
   overflow: hidden;
+  perspective: 1000px;
+  margin-top: -1.5rem;
 }
 
 spline-viewer {
