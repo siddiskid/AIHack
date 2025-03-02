@@ -79,11 +79,11 @@ function VoiceTranscription({ hideMainTitle }) {
           try {
             // Try to parse the summary into structured format
             // This is a simple parsing logic - you might need to adjust based on your actual summary format
-            const lines = result.summary.split('\n');
+            const lines = result.summary.split("\n");
             const newParsedSummary = {
               symptoms: [],
               diagnosis: "",
-              treatment: []
+              treatment: [],
             };
 
             let currentSection = null;
@@ -92,31 +92,37 @@ function VoiceTranscription({ hideMainTitle }) {
               const trimmedLine = line.trim();
               if (!trimmedLine) continue;
 
-              if (trimmedLine.toLowerCase().includes('symptom')) {
-                currentSection = 'symptoms';
-              } else if (trimmedLine.toLowerCase().includes('diagnos')) {
-                currentSection = 'diagnosis';
-              } else if (trimmedLine.toLowerCase().includes('treatment') ||
-                trimmedLine.toLowerCase().includes('plan')) {
-                currentSection = 'treatment';
+              if (trimmedLine.toLowerCase().includes("symptom")) {
+                currentSection = "symptoms";
+              } else if (trimmedLine.toLowerCase().includes("diagnos")) {
+                currentSection = "diagnosis";
+              } else if (
+                trimmedLine.toLowerCase().includes("treatment") ||
+                trimmedLine.toLowerCase().includes("plan")
+              ) {
+                currentSection = "treatment";
               } else if (currentSection) {
                 // Extract bullet points (assuming they start with - or *)
                 const bulletMatch = trimmedLine.match(/^[-*•]\s*(.+)$/);
-                if (bulletMatch && (currentSection === 'symptoms' || currentSection === 'treatment')) {
-                  if (currentSection === 'symptoms') {
+                if (
+                  bulletMatch &&
+                  (currentSection === "symptoms" ||
+                    currentSection === "treatment")
+                ) {
+                  if (currentSection === "symptoms") {
                     newParsedSummary.symptoms.push(bulletMatch[1]);
-                  } else if (currentSection === 'treatment') {
+                  } else if (currentSection === "treatment") {
                     newParsedSummary.treatment.push(bulletMatch[1]);
                   }
-                } else if (currentSection === 'diagnosis') {
+                } else if (currentSection === "diagnosis") {
                   newParsedSummary.diagnosis = trimmedLine;
                 } else if (trimmedLine.length > 3) {
                   // If not a bullet point but has content
-                  if (currentSection === 'symptoms') {
+                  if (currentSection === "symptoms") {
                     newParsedSummary.symptoms.push(trimmedLine);
-                  } else if (currentSection === 'diagnosis') {
+                  } else if (currentSection === "diagnosis") {
                     newParsedSummary.diagnosis = trimmedLine;
-                  } else if (currentSection === 'treatment') {
+                  } else if (currentSection === "treatment") {
                     newParsedSummary.treatment.push(trimmedLine);
                   }
                 }
@@ -124,12 +130,13 @@ function VoiceTranscription({ hideMainTitle }) {
             }
 
             // If we got any content, update the state
-            if (newParsedSummary.symptoms.length > 0 ||
+            if (
+              newParsedSummary.symptoms.length > 0 ||
               newParsedSummary.diagnosis ||
-              newParsedSummary.treatment.length > 0) {
+              newParsedSummary.treatment.length > 0
+            ) {
               setParsedSummary(newParsedSummary);
             }
-
           } catch (parseError) {
             console.error("Failed to parse summary:", parseError);
           }
@@ -198,8 +205,8 @@ function VoiceTranscription({ hideMainTitle }) {
 
       audioContext.current = new (window.AudioContext ||
         window.webkitAudioContext)({
-          sampleRate: 16000,
-        });
+        sampleRate: 16000,
+      });
 
       audioInput.current = audioContext.current.createMediaStreamSource(stream);
       processor.current = audioContext.current.createScriptProcessor(
@@ -285,11 +292,14 @@ function VoiceTranscription({ hideMainTitle }) {
           text: transcription, // Changed from transcription to text to match backend API
           inputLanguage,
           outputLanguage,
-          requestType: "text_summary" // Add a flag to indicate this is a text-based request
+          requestType: "text_summary", // Add a flag to indicate this is a text-based request
         })
       );
 
-      console.log("Sent text for processing:", transcription.substring(0, 100) + "...");
+      console.log(
+        "Sent text for processing:",
+        transcription.substring(0, 100) + "..."
+      );
     }
   };
 
@@ -301,7 +311,9 @@ function VoiceTranscription({ hideMainTitle }) {
             <h1>Prescripto</h1>
           </Link>
         )}
-        <p>Record or paste medical conversations for instant clinical summaries</p>
+        <p>
+          Record or paste medical conversations for instant clinical summaries
+        </p>
       </div>
 
       <div className="language-controls">
@@ -385,9 +397,13 @@ function VoiceTranscription({ hideMainTitle }) {
                 <button
                   className="process-text-button"
                   onClick={handleSubmitText}
-                  disabled={!transcription.trim() || readyState !== ReadyState.OPEN}
+                  disabled={
+                    !transcription.trim() || readyState !== ReadyState.OPEN
+                  }
                 >
-                  {connectionStatus === "Processing..." ? "Processing..." : "Process Text"}
+                  {connectionStatus === "Processing..."
+                    ? "Processing..."
+                    : "Process Text"}
                 </button>
               </div>
             )}
@@ -414,9 +430,7 @@ function VoiceTranscription({ hideMainTitle }) {
 
             <div className="summary-section">
               <h3>Diagnosis</h3>
-              <p>
-                {parsedSummary.diagnosis || "No diagnosis available yet."}
-              </p>
+              <p>{parsedSummary.diagnosis || "No diagnosis available yet."}</p>
             </div>
 
             <div className="summary-section">
@@ -437,12 +451,13 @@ function VoiceTranscription({ hideMainTitle }) {
 
       <div className="connection-indicator">
         <span
-          className={`status-dot ${connectionStatus === "Connected"
-            ? "connected"
-            : connectionStatus === "Error"
+          className={`status-dot ${
+            connectionStatus === "Connected"
+              ? "connected"
+              : connectionStatus === "Error"
               ? "error"
               : "disconnected"
-            }`}
+          }`}
         ></span>
         Server status: {connectionStatus}
       </div>
@@ -451,11 +466,11 @@ function VoiceTranscription({ hideMainTitle }) {
 }
 
 VoiceTranscription.propTypes = {
-  hideMainTitle: PropTypes.bool
+  hideMainTitle: PropTypes.bool,
 };
 
 VoiceTranscription.defaultProps = {
-  hideMainTitle: false
+  hideMainTitle: false,
 };
 
 export default VoiceTranscription;
