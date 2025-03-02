@@ -29,10 +29,7 @@ const Home = ({ isAuthenticated, onSignOut }) => {
                 </div>
                 <div className="nav-button">
                     {isAuthenticated ? (
-                        <>
-                            <Link to="/app" className="get-started-btn">Go to App</Link>
-                            <button onClick={onSignOut} className="sign-out-btn">Sign out</button>
-                        </>
+                        <button onClick={onSignOut} className="sign-out-btn">Sign out</button>
                     ) : (
                         <Link to="/auth" className="get-started-btn">Get started</Link>
                     )}
