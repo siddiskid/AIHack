@@ -39,17 +39,16 @@ const About = ({ isAuthenticated, onSignOut }) => {
 
                         <h2>What We Do</h2>
                         <p className="about-description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum. Sed ut
-                            perspiciatis unde omnis iste natus error sit voluptatem
-                            accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae
-                            vitae dicta sunt explicabo.
+                            At Prescripto, we're developing a groundbreaking healthcare platform that brings together advanced AI
+                            technology and user-friendly web design to transform the medical consultation experience. Our system
+                            provides real-time medical transcription during consultations, generates comprehensive clinical summaries,
+                            and includes features like pharmacy location services to enhance patient access to care.
+                        </p>
+                        <p className="about-description">
+                            Our mission is to reduce administrative burden for healthcare providers while improving the
+                            accuracy of medical documentation. By leveraging state-of-the-art natural language processing and
+                            a seamless user interface, we're creating a solution that makes healthcare more efficient, accessible,
+                            and engaging for both providers and patients.
                         </p>
                     </div>
 
@@ -61,8 +60,8 @@ const About = ({ isAuthenticated, onSignOut }) => {
                                     <div className="avatar blue"></div>
                                 </div>
                                 <div className="member-info">
-                                    <h3>Jane Doe</h3>
-                                    <p>Head of Operations</p>
+                                    <h3>Swapnil Dubey</h3>
+                                    <p>AI and Web Dev</p>
                                 </div>
                             </div>
 
@@ -71,8 +70,8 @@ const About = ({ isAuthenticated, onSignOut }) => {
                                     <div className="avatar pink"></div>
                                 </div>
                                 <div className="member-info">
-                                    <h3>John Doe</h3>
-                                    <p>Technical Director</p>
+                                    <h3>Siddarth Chilukuri</h3>
+                                    <p>Web Dev and Design</p>
                                 </div>
                             </div>
 
@@ -81,8 +80,8 @@ const About = ({ isAuthenticated, onSignOut }) => {
                                     <div className="avatar pink"></div>
                                 </div>
                                 <div className="member-info">
-                                    <h3>Sarah Johnson</h3>
-                                    <p>Lead Designer</p>
+                                    <h3>Jennifer Lang</h3>
+                                    <p>AI and Web Dev</p>
                                 </div>
                             </div>
 
@@ -91,8 +90,8 @@ const About = ({ isAuthenticated, onSignOut }) => {
                                     <div className="avatar blue"></div>
                                 </div>
                                 <div className="member-info">
-                                    <h3>Mike Smith</h3>
-                                    <p>Product Manager</p>
+                                    <h3>Pearl Dhingra</h3>
+                                    <p>Web Dev and Design</p>
                                 </div>
                             </div>
                         </div>
