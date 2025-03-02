@@ -143,13 +143,14 @@
 /* Style for name and message fields (dark background) */
 #name,
 #message {
-    background-color: #333333;
-    color: white;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    color: #333;
 }
 
 #name::placeholder,
 #message::placeholder {
-    color: #aaa;
+    color: #999;
 }
 
 /* Style for email field (light background) */
