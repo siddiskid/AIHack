@@ -56,6 +56,26 @@ async def handle_websocket(websocket, path):
             try:
                 # Parse the incoming message
                 data = json.loads(message)
+                
+                # Check if this is a text-only request
+                if 'text' in data and data.get('requestType') == 'text_summary':
+                    # Process direct text input for summary
+                    text_input = data['text']
+                    input_language = data.get('inputLanguage', 'en')
+                    logging.info(f"Processing text input for summary from client {client_id}")
+                    
+                    # Generate and send a clinical summary
+                    if len(text_input) > 0:
+                        logging.info(f"Generating clinical summary for text from client {client_id}")
+                        summary = await generate_clinical_summary(text_input, input_language)
+                        summary_response = {
+                            'summary': summary
+                        }
+                        await websocket.send(json.dumps(summary_response))
+                        logging.info(f"Sent clinical summary for text to client {client_id}")
+                    continue
+                
+                # Regular audio processing
                 if 'audio' not in data:
                     logging.warning(f"Client {client_id} sent message without audio data")
                     continue
@@ -166,11 +186,11 @@ async def main():
         async with websockets.serve(
             handle_websocket,
             "localhost",
-            8000,
+            8001,  # Changed to port 8001 to avoid conflicts
             ping_interval=None,  # Disable ping-pong to avoid timeouts
             origins=None  # Allow all origins
         ) as server:
-            logging.info("WebSocket server started on ws://localhost:8000")
+            logging.info("WebSocket server started on ws://localhost:8001")
             await asyncio.Future()  # run forever
     except Exception as e:
         logging.error(f"Failed to start WebSocket server: {e}")

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import "../styles/VoiceTranscription.css";
+import PropTypes from "prop-types";
 
 const WS_URL = "ws://localhost:8001";
 
@@ -22,7 +23,7 @@ const LANGUAGES = {
   hi: "Hindi",
 };
 
-function VoiceTranscription() {
+function VoiceTranscription({ hideMainTitle }) {
   const [isRecording, setIsRecording] = useState(false);
   const [transcription, setTranscription] = useState("");
   const [summary, setSummary] = useState("");
@@ -266,20 +267,37 @@ function VoiceTranscription() {
   // Handle manual text input for testing
   const handleSubmitText = () => {
     if (transcription.trim().length > 0) {
+      // First clear any existing summary
+      setSummary("");
+      setParsedSummary({
+        symptoms: [],
+        diagnosis: "",
+        treatment: [],
+      });
+
+      // Show processing status to the user
+      setConnectionStatus("Processing...");
+
+      // Send the text for processing
       sendMessage(
         JSON.stringify({
-          transcription: transcription,
+          text: transcription, // Changed from transcription to text to match backend API
           inputLanguage,
           outputLanguage,
+          requestType: "text_summary" // Add a flag to indicate this is a text-based request
         })
       );
+
+      console.log("Sent text for processing:", transcription.substring(0, 100) + "...");
     }
   };
 
   return (
     <div className="voice-transcription-container">
       <div className="transcription-header">
-        <h1>Medical Transcription</h1>
+        {!hideMainTitle && (
+          <h1>Prescripto</h1>
+        )}
         <p>Record or paste medical conversations for instant clinical summaries</p>
       </div>
 
@@ -360,21 +378,13 @@ function VoiceTranscription() {
               disabled={isRecording}
             />
             {!isRecording && (
-              <div style={{ padding: '10px', display: 'flex', justifyContent: 'flex-end' }}>
+              <div className="process-text-container">
                 <button
+                  className="process-text-button"
                   onClick={handleSubmitText}
-                  disabled={!transcription.trim()}
-                  style={{
-                    padding: '8px 16px',
-                    background: '#4666e5',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    opacity: !transcription.trim() ? 0.6 : 1
-                  }}
+                  disabled={!transcription.trim() || readyState !== ReadyState.OPEN}
                 >
-                  Process Text
+                  {connectionStatus === "Processing..." ? "Processing..." : "Process Text"}
                 </button>
               </div>
             )}
@@ -425,10 +435,10 @@ function VoiceTranscription() {
       <div className="connection-indicator">
         <span
           className={`status-dot ${connectionStatus === "Connected"
-              ? "connected"
-              : connectionStatus === "Error"
-                ? "error"
-                : "disconnected"
+            ? "connected"
+            : connectionStatus === "Error"
+              ? "error"
+              : "disconnected"
             }`}
         ></span>
         Server status: {connectionStatus}
@@ -436,5 +446,13 @@ function VoiceTranscription() {
     </div>
   );
 }
+
+VoiceTranscription.propTypes = {
+  hideMainTitle: PropTypes.bool
+};
+
+VoiceTranscription.defaultProps = {
+  hideMainTitle: false
+};
 
 export default VoiceTranscription;
