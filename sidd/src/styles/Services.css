@@ -1,0 +1,218 @@
+/* Services page styles */
+.services-container {
+    min-height: 100vh;
+    background-color: #f0f4ff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Reusing navigation styles from Home.css */
+.services-container .home-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.services-container .nav-logo {
+    margin: 0;
+}
+
+.services-container .nav-logo .logo-link {
+    color: #4666e5;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.services-container .nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.services-container .nav-links a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.services-container .nav-links a:hover,
+.services-container .nav-links a.active {
+    color: #4666e5;
+}
+
+.services-container .get-started-btn {
+    background-color: #4666e5;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.services-container .get-started-btn:hover {
+    background-color: #3651c6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+/* Services content styles */
+.services-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.services-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.service-card h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.service-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.service-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    color: #4666e5;
+}
+
+.feature span {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.service-button {
+    background-color: #4666e5;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.service-button:hover {
+    background-color: #3651c6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-container .home-nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .services-container .nav-logo {
+        margin-bottom: 1rem;
+    }
+
+    .services-container .nav-links {
+        gap: 1rem;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .services-container .nav-button {
+        margin-top: 1rem;
+    }
+
+    .service-features {
+        grid-template-columns: 1fr;
+    }
+
+    .services-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-card {
+        padding: 1.5rem;
+    }
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sign-out-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sign-out-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.25);
+}

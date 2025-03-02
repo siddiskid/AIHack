@@ -1,22 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 
-const Home = () => {
+const Home = ({ isAuthenticated, onSignOut }) => {
+    const navigate = useNavigate();
+
+    const handleGetStarted = () => {
+        if (isAuthenticated) {
+            navigate('/app');
+        } else {
+            navigate('/auth');
+        }
+    };
+
     return (
         <div className="home-container">
             <nav className="home-nav">
                 <div className="nav-logo">
-                    <h1>Prescripto</h1>
+                    <Link to="/">
+                        <h1>Prescripto</h1>
+                    </Link>
                 </div>
                 <div className="nav-links">
                     <a href="#" className="active">Home</a>
                     <a href="#about">About</a>
-                    <a href="#services">Services</a>
+                    <Link to="/services">Services</Link>
                     <a href="#contact">Contact us</a>
                 </div>
                 <div className="nav-button">
-                    <Link to="/app" className="get-started-btn">Get started</Link>
+                    {isAuthenticated ? (
+                        <>
+                            <Link to="/app" className="get-started-btn">Go to App</Link>
+                            <button onClick={onSignOut} className="sign-out-btn">Sign out</button>
+                        </>
+                    ) : (
+                        <Link to="/auth" className="get-started-btn">Get started</Link>
+                    )}
                 </div>
             </nav>
 
@@ -34,7 +53,7 @@ const Home = () => {
                     </p>
 
                     <div className="cta-buttons">
-                        <Link to="/app" className="primary-button">Get Started</Link>
+                        <button onClick={handleGetStarted} className="primary-button">Get Started</button>
                         <a href="#features" className="secondary-button">Learn More</a>
                     </div>
                 </div>

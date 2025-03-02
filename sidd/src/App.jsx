@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import VoiceTranscription from "./components/VoiceTranscription";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
+import Services from "./components/Services";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDoStP2q45t8lJ8E6WjwIEangeyrZqd8i0",
@@ -72,34 +73,78 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        {isAuthenticated && (
-          <header>
-            <div className="header-logo">
-              <h1>Prescripto</h1>
-              <span className="tagline">Medical Transcription & Summaries</span>
-            </div>
-            <div className="auth-buttons">
-              <button onClick={handleSignOut}>Sign out</button>
-            </div>
-          </header>
-        )}
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/app"
-            element={
-              isAuthenticated ? (
-                <VoiceTranscription hideMainTitle={true} />
-              ) : (
-                <Auth onAuthenticated={handleAuthenticated} />
-              )
-            }
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <AppContent
+          isAuthenticated={isAuthenticated}
+          handleSignOut={handleSignOut}
+          handleAuthenticated={handleAuthenticated}
+        />
       </div>
     </Router>
+  );
+}
+
+// Separate component to access the location
+function AppContent({ isAuthenticated, handleSignOut, handleAuthenticated }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  // Only show the app header on the transcription tool page
+  const shouldShowAppHeader = isAuthenticated && currentPath === "/app";
+
+  return (
+    <>
+      {shouldShowAppHeader && (
+        <header>
+          <div className="header-logo">
+            <Link to="/" className="logo-link">
+              <h1>Prescripto</h1>
+              <span className="tagline">Medical Transcription & Summaries</span>
+            </Link>
+          </div>
+          <div className="auth-buttons">
+            <button onClick={handleSignOut}>Sign out</button>
+          </div>
+        </header>
+      )}
+
+      <Routes>
+        <Route
+          path="/"
+          element={<Home isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />}
+        />
+        <Route
+          path="/services"
+          element={
+            isAuthenticated ? (
+              <Services isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
+            ) : (
+              <Navigate to="/auth" replace />
+            )
+          }
+        />
+        <Route
+          path="/auth"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/" replace />
+            ) : (
+              <Auth onAuthenticated={handleAuthenticated} />
+            )
+          }
+        />
+        <Route
+          path="/app"
+          element={
+            isAuthenticated ? (
+              <VoiceTranscription hideMainTitle={true} />
+            ) : (
+              <Navigate to="/auth" replace />
+            )
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }
 

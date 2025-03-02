@@ -41,6 +41,12 @@
     color: #4666e5;
 }
 
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .get-started-btn {
     background-color: #4666e5;
     color: white;
@@ -48,14 +54,32 @@
     border-radius: 2rem;
     font-weight: 600;
     text-decoration: none;
+    box-shadow: 0 4px 10px rgba(70, 102, 229, 0.2);
     transition: all 0.3s ease;
-    display: inline-block;
 }
 
 .get-started-btn:hover {
     background-color: #3651c6;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(70, 102, 229, 0.25);
+}
+
+.sign-out-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sign-out-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.25);
 }
 
 /* Main content styles */
